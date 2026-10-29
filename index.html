@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estimator · Quotation Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="toolbar">
+    <span class="logo">Estimator</span>
+    <select id="quoteSelect" title="Saved quotes"></select>
+    <button type="button" id="btnNew">New</button>
+    <button type="button" id="btnDup">Duplicate</button>
+    <button type="button" id="btnDel">Delete</button>
+    <span class="status" id="status"></span>
+    <span class="spacer"></span>
+    <button type="button" id="btnToggle">Hide editor</button>
+    <button type="button" id="btnExport">Export JSON</button>
+    <button type="button" id="btnImport">Import JSON</button>
+    <input type="file" id="fileImport" accept="application/json,.json" hidden>
+    <button type="button" id="btnPrint" class="primary">Print / Save PDF</button>
+  </header>
+
+  <main class="layout">
+    <aside class="editor" id="editor"></aside>
+    <div class="preview-wrap">
+      <article class="doc" id="doc"></article>
+    </div>
+  </main>
+
+  <script src="template.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

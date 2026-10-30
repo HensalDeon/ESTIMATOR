@@ -279,11 +279,31 @@
   const ul = (items, cls = 'd-checks') =>
     items && items.length ? `<ul class="${cls}">${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>` : '';
 
+  // Printed page footer via @page margin boxes; these also replace the browser's URL/date headers.
+  function renderPageFooter(q) {
+    let el = document.getElementById('page-style');
+    if (!el) {
+      el = document.createElement('style');
+      el.id = 'page-style';
+      document.head.appendChild(el);
+    }
+    const css = (s) => `"${String(s ?? '').replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, ' ')}"`;
+    const left = [q.from.name, q.meta.number && `Quotation ${q.meta.number}`].filter(Boolean).join('  ·  ');
+    const box = 'font-family: Inter, sans-serif; font-size: 8pt; color: #8a8378;';
+    el.textContent = `@page {
+      @top-left { content: ""; } @top-center { content: ""; } @top-right { content: ""; }
+      @bottom-center { content: ""; }
+      @bottom-left { content: ${css(left)}; ${box} padding-left: 48px; }
+      @bottom-right { content: "Page " counter(page) " of " counter(pages); ${box} padding-right: 48px; }
+    }`;
+  }
+
   // ---------- Preview ----------
   function renderPreview() {
     const q = state;
     const m = q.meta;
     document.documentElement.style.setProperty('--accent', m.accent || '#b08d57');
+    renderPageFooter(q);
 
     const total = sum(q.groups.map((g) => g.value));
     const price = Number(q.pricing.packagePrice) || 0;
@@ -377,7 +397,7 @@
       : '';
 
     const third = q.thirdParty.length
-      ? `<p>You pay these directly to each provider, on your own accounts. They are <strong>not part of this quotation</strong>.</p>
+      ? `<p class="d-lead">You pay these directly to each provider, on your own accounts. They are <strong>not part of this quotation</strong>.</p>
         <table class="d-table">
           <thead><tr><th>Item</th><th>Estimated cost</th><th>Notes</th></tr></thead>
           <tbody>${q.thirdParty.map((t) => `<tr><td><strong>${esc(t.item)}</strong></td><td>${esc(t.estimate)}</td><td>${esc(t.note)}</td></tr>`).join('')}</tbody>
@@ -385,7 +405,7 @@
       : '';
 
     const addons = q.addons.length
-      ? `<p>Want to go further? These can be added at any time, now or after launch.</p>
+      ? `<p class="d-lead">Want to go further? These can be added at any time, now or after launch.</p>
         <table class="d-table">
           <thead><tr><th>Add-on</th><th>Description</th><th class="r">Price</th></tr></thead>
           <tbody>${q.addons.map((a) => `<tr><td><strong>${esc(a.title)}</strong></td><td>${esc(a.desc)}</td><td class="r">${esc(money(a.price))}${a.unit ? ` <small>${esc(a.unit)}</small>` : ''}</td></tr>`).join('')}</tbody>

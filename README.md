@@ -56,9 +56,8 @@ In the browser's print dialog:
 - **Paper size:** A4
 - **Margins:** Default
 - **Background graphics:** On, needed for the dark cover and accents
-- **Headers and footers:** Off
 
-Chrome and Edge give the most accurate results.
+Each printed page gets its own footer (your name, quote number and "Page X of Y"), which replaces the browser's default URL and date headers. Chrome and Edge give the most accurate results.
 
 ## Customising the default template
 

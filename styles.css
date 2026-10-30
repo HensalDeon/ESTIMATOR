@@ -349,7 +349,7 @@ body.preview-only .editor { display: none; }
   .layout { display: block; height: auto; }
   .preview-wrap { padding: 0; overflow: visible; }
   .doc { width: auto; margin: 0; box-shadow: none; }
-  .d-sec h2, .d-sec > p { break-after: avoid; }
+  .d-sec h2, .d-lead { break-after: avoid; }
   .d-table, .d-timeline, .d-cols > div, .d-sec-invest { break-inside: avoid; }
   .d-foot { break-inside: avoid; }
 }
